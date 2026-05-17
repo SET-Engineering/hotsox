@@ -17,8 +17,7 @@
       --bad: #ff5c70;
       --accent: #7c8cff;
       --accent-2: #a3b0ff;
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-      --radius: 22px;
+      --radius: 16px;
     }
 
     * {
@@ -34,120 +33,67 @@
     }
 
     body {
-      padding: 18px;
+      padding: 10px;
     }
 
     .app {
       max-width: 760px;
       margin: 0 auto;
       display: grid;
-      gap: 16px;
+      gap: 10px;
     }
 
-    .hero {
-      padding: 22px;
+    .topbar,
+    .card {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(145deg, #18181d, #101014);
-      box-shadow: var(--shadow);
+      background: var(--panel);
     }
 
-    .eyebrow {
-      color: var(--muted);
-      font-size: 0.82rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
+    .topbar {
+      padding: 10px 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      min-width: 0;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 8vw, 4rem);
-      line-height: 0.95;
+      font-size: 1.55rem;
+      line-height: 1;
       letter-spacing: -0.04em;
     }
 
-    .subtitle {
-      margin: 12px 0 0;
+    .subbrand {
       color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.45;
-    }
-
-    .grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    @media (min-width: 700px) {
-      .grid.two {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .card {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-    }
-
-    .card h2 {
-      margin: 0 0 14px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .stack {
-      display: grid;
-      gap: 12px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 34px;
-      padding: 0 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--panel-2);
-      font-size: 0.92rem;
-      font-weight: 650;
+      font-size: 0.76rem;
       white-space: nowrap;
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--muted);
-      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    .button-row {
+      display: grid;
+      gap: 7px;
     }
 
-    .dot.good {
-      background: var(--good);
-      box-shadow: 0 0 14px rgba(56, 217, 130, 0.65);
+    .button-row.connection {
+      grid-template-columns: 1.25fr 1fr;
     }
 
-    .dot.warn {
-      background: var(--warn);
-      box-shadow: 0 0 14px rgba(255, 187, 51, 0.65);
-    }
-
-    .dot.bad {
-      background: var(--bad);
-      box-shadow: 0 0 14px rgba(255, 92, 112, 0.65);
+    .button-row.modes {
+      grid-template-columns: repeat(4, 1fr);
     }
 
     button {
@@ -156,10 +102,11 @@
       background: var(--panel-2);
       color: var(--text);
       font: inherit;
+      font-size: 0.9rem;
       font-weight: 700;
-      border-radius: 16px;
-      min-height: 52px;
-      padding: 0 16px;
+      border-radius: 12px;
+      min-height: 40px;
+      padding: 0 10px;
       cursor: pointer;
       transition: transform 120ms ease, border-color 120ms ease, background 120ms ease, opacity 120ms ease;
     }
@@ -195,87 +142,173 @@
       transform: none;
     }
 
-    .button-row {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: 1fr 1fr;
+    .mini-button {
+      min-height: 30px;
+      padding: 0 9px;
+      font-size: 0.78rem;
+      border-radius: 10px;
     }
 
-    @media (min-width: 540px) {
-      .button-row.connect {
-        grid-template-columns: 1.2fr 1fr 1fr;
-      }
-
-      .button-row.modes {
-        grid-template-columns: repeat(4, 1fr);
-      }
+    .status-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    .metric-grid {
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 28px;
+      padding: 0 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      font-size: 0.78rem;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--muted);
+    }
+
+    .dot.good {
+      background: var(--good);
+      box-shadow: 0 0 10px rgba(56, 217, 130, 0.58);
+    }
+
+    .dot.warn {
+      background: var(--warn);
+      box-shadow: 0 0 10px rgba(255, 187, 51, 0.58);
+    }
+
+    .dot.bad {
+      background: var(--bad);
+      box-shadow: 0 0 10px rgba(255, 92, 112, 0.58);
+    }
+
+    .card {
+      padding: 10px 12px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 750;
+      letter-spacing: -0.01em;
+    }
+
+    .dashboard-grid {
       display: grid;
-      gap: 10px;
       grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
 
     .metric {
-      padding: 14px;
-      border-radius: 16px;
+      padding: 9px 10px;
+      border-radius: 12px;
       border: 1px solid var(--line);
       background: var(--panel-2);
+      min-height: 60px;
     }
 
     .metric .label {
       color: var(--muted);
-      font-size: 0.78rem;
+      font-size: 0.67rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
 
     .metric .value {
-      font-size: clamp(1.35rem, 5vw, 2rem);
+      font-size: 1.28rem;
       line-height: 1;
       font-weight: 760;
       letter-spacing: -0.03em;
     }
 
-    .metric .small {
-      font-size: 1rem;
+    .metric .value.small {
+      font-size: 0.98rem;
       letter-spacing: 0;
+      line-height: 1.1;
     }
 
-    .note {
+    .control-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .state-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+
+    .state-box {
+      min-height: 46px;
+      padding: 7px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      display: grid;
+      align-content: center;
+      gap: 3px;
+    }
+
+    .state-label {
       color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.45;
-      margin-top: 12px;
+      font-size: 0.64rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .state-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 740;
+      min-width: 0;
     }
 
     .raw {
-      padding: 12px;
-      border-radius: 14px;
+      margin-top: 8px;
+      padding: 7px 9px;
+      border-radius: 10px;
       background: #0d0d11;
       border: 1px solid var(--line);
       color: #d4d4d8;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 0.92rem;
+      font-size: 0.76rem;
       word-break: break-all;
     }
 
     .log {
-      height: 270px;
+      height: 178px;
       overflow: auto;
-      padding: 12px;
-      border-radius: 16px;
+      padding: 8px 9px;
+      border-radius: 12px;
       border: 1px solid var(--line);
       background: #0d0d11;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 0.84rem;
-      line-height: 1.45;
+      font-size: 0.73rem;
+      line-height: 1.35;
     }
 
     .log-entry {
-      margin: 0 0 8px;
+      margin: 0 0 5px;
       color: #d4d4d8;
       white-space: pre-wrap;
       word-break: break-word;
@@ -293,91 +326,89 @@
       color: #ffb0bc;
     }
 
-    .footer-note {
-      color: var(--muted);
-      text-align: center;
-      font-size: 0.82rem;
-      padding: 6px 0 2px;
+    @media (min-width: 620px) {
+      body {
+        padding: 14px;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
   </style>
 </head>
 <body>
   <main class="app">
-    <section class="hero">
-      <div class="eyebrow">SET Engineering · HotSox Prototype</div>
-      <h1>HotSox</h1>
-      <p class="subtitle">
-        Phone control for the BLE heater prototype. Connect, select heat mode, and watch live current, bus voltage, and heater output state.
-      </p>
-    </section>
-
-    <section class="card">
-      <h2>Connection</h2>
-
-      <div class="button-row connect">
-        <button id="connectButton" class="primary">Connect HotSox</button>
-        <button id="disconnectButton" disabled>Disconnect</button>
-        <button id="readStatusButton" disabled>Read status</button>
+    <section class="topbar">
+      <div class="brand-row">
+        <div class="brand">
+          <h1>HotSox</h1>
+          <div class="subbrand">SET prototype BLE controller</div>
+        </div>
       </div>
 
-      <div class="row">
+      <div class="button-row connection">
+        <button id="connectButton" class="primary">Connect</button>
+        <button id="disconnectButton" disabled>Disconnect</button>
+      </div>
+
+      <div class="status-strip">
         <div id="connectionPill" class="pill">
           <span id="connectionDot" class="dot bad"></span>
           <span id="connectionText">Disconnected</span>
         </div>
 
         <div id="deviceName" class="pill">No device</div>
+
+        <div id="detectedPill" class="pill">
+          <span id="detectedDot" class="dot"></span>
+          <span id="detectedText">Heater ?</span>
+        </div>
+
+        <div id="outputPill" class="pill">
+          <span id="outputDot" class="dot"></span>
+          <span id="outputText">Output —</span>
+        </div>
       </div>
     </section>
 
-    <section class="grid two">
-      <section class="card">
-        <h2>Heat control</h2>
+    <section class="card control-grid">
+      <div class="section-head">
+        <h2>Heat mode</h2>
+        <button id="readStatusButton" class="mini-button" disabled>Read status</button>
+      </div>
 
-        <div class="button-row modes">
-          <button class="mode" data-mode="0" disabled>OFF</button>
-          <button class="mode" data-mode="1" disabled>LOW</button>
-          <button class="mode" data-mode="2" disabled>MED</button>
-          <button class="mode" data-mode="3" disabled>HIGH</button>
+      <div class="button-row modes">
+        <button class="mode" data-mode="0" disabled>OFF</button>
+        <button class="mode" data-mode="1" disabled>LOW</button>
+        <button class="mode" data-mode="2" disabled>MED</button>
+        <button class="mode" data-mode="3" disabled>HIGH</button>
+      </div>
+
+      <div class="state-row">
+        <div class="state-box">
+          <div class="state-label">Mode</div>
+          <div id="modeValue" class="state-value">—</div>
         </div>
 
-        <p class="note">
-          Current firmware modes: LOW = 25% burst duty, MED = 50%, HIGH = continuous ON.
-        </p>
-      </section>
-
-      <section class="card">
-        <h2>Heater state</h2>
-
-        <div class="stack">
-          <div class="row">
-            <span>Heater detected</span>
-            <div id="detectedPill" class="pill">
-              <span id="detectedDot" class="dot"></span>
-              <span id="detectedText">Unknown</span>
-            </div>
-          </div>
-
-          <div class="row">
-            <span>Selected mode</span>
-            <div id="modePill" class="pill">—</div>
-          </div>
-
-          <div class="row">
-            <span>Output right now</span>
-            <div id="outputPill" class="pill">
-              <span id="outputDot" class="dot"></span>
-              <span id="outputText">—</span>
-            </div>
-          </div>
+        <div class="state-box">
+          <div class="state-label">INA</div>
+          <div id="inaValue" class="state-value">—</div>
         </div>
-      </section>
+
+        <div class="state-box">
+          <div class="state-label">Packet</div>
+          <div id="rawShortValue" class="state-value">—</div>
+        </div>
+      </div>
     </section>
 
     <section class="card">
-      <h2>Live electrical status</h2>
+      <div class="section-head">
+        <h2>Electrical status</h2>
+      </div>
 
-      <div class="metric-grid">
+      <div class="dashboard-grid">
         <div class="metric">
           <div class="label">Current</div>
           <div id="currentValue" class="value">—</div>
@@ -389,38 +420,25 @@
         </div>
 
         <div class="metric">
-          <div class="label">Approx. input power</div>
+          <div class="label">Approx. power</div>
           <div id="powerValue" class="value">—</div>
         </div>
 
         <div class="metric">
-          <div class="label">INA status</div>
-          <div id="inaValue" class="value small">—</div>
+          <div class="label">Raw status packet</div>
+          <div id="rawPacket" class="value small">—</div>
         </div>
       </div>
-
-      <div class="row">
-        <span>Latest raw status packet</span>
-      </div>
-      <div id="rawPacket" class="raw">—</div>
     </section>
 
     <section class="card">
-      <div class="row" style="margin-top: 0;">
-        <h2 style="margin: 0;">App event log</h2>
-        <button id="clearLogButton">Clear</button>
+      <div class="section-head">
+        <h2>Event log</h2>
+        <button id="clearLogButton" class="mini-button">Clear</button>
       </div>
 
       <div id="log" class="log"></div>
-
-      <p class="note">
-        This is the phone app’s BLE/event log, not the Arduino USB Serial Monitor stream.
-      </p>
     </section>
-
-    <div class="footer-note">
-      HotSox BLE Web Controller · Prototype UI
-    </div>
   </main>
 
   <script>
@@ -521,21 +539,23 @@
       const previous = lastStatus;
       lastStatus = status;
 
-      $('detectedText').textContent = status.detected ? 'Detected' : 'Absent';
+      $('detectedText').textContent = status.detected ? 'Heater detected' : 'Heater absent';
       $('detectedDot').className = `dot ${status.detected ? 'good' : 'bad'}`;
 
-      $('modePill').textContent = status.modeName;
+      $('outputText').textContent = status.outputOn ? 'Output ON' : 'Output OFF';
+      $('outputDot').className = `dot ${status.outputOn ? 'warn' : ''}`.trim();
+
+      $('modeValue').textContent = status.modeName;
       setActiveModeButton(status.mode);
 
-      $('outputText').textContent = status.outputOn ? 'ON' : 'OFF';
-      $('outputDot').className = `dot ${status.outputOn ? 'warn' : ''}`.trim();
+      $('inaValue').textContent = status.inaValid ? 'Valid' : 'Invalid';
 
       $('currentValue').textContent = `${status.currentMa} mA`;
       $('voltageValue').textContent = `${status.busV.toFixed(3)} V`;
       $('powerValue').textContent = `${status.powerW.toFixed(2)} W`;
-      $('inaValue').textContent = status.inaValid ? 'Valid' : 'Invalid';
 
       $('rawPacket').textContent = status.raw;
+      $('rawShortValue').textContent = status.raw.slice(0, 5);
 
       if (previous) {
         if (previous.detected !== status.detected) {
@@ -550,7 +570,7 @@
         }
 
         if (previous.outputOn !== status.outputOn) {
-          log(`Heater output ${status.outputOn ? 'ON' : 'OFF'} right now.`);
+          log(`Output ${status.outputOn ? 'ON' : 'OFF'}.`);
         }
       }
     }
@@ -575,7 +595,7 @@
       }
 
       try {
-        log('Opening Bluetooth device picker...');
+        log('Opening Bluetooth picker...');
 
         bluetoothDevice = await navigator.bluetooth.requestDevice({
           filters: [{ namePrefix: 'HotSox' }],
@@ -602,7 +622,7 @@
         log('Connected. Live notifications enabled.', 'good');
 
         const initialStatus = await statusCharacteristic.readValue();
-        handleStatusValue(initialStatus, 'initial read');
+        handleStatusValue(initialStatus, 'initial');
       } catch (error) {
         log(`Connection failed: ${error.message}`, 'bad');
         setConnectedUi(false);
@@ -634,7 +654,7 @@
 
       try {
         const value = await statusCharacteristic.readValue();
-        handleStatusValue(value, 'manual read');
+        handleStatusValue(value, 'manual');
       } catch (error) {
         log(`Status read failed: ${error.message}`, 'bad');
       }
@@ -649,7 +669,7 @@
       try {
         const payload = Uint8Array.of(mode);
         await modeCharacteristic.writeValue(payload);
-        log(`Sent mode command: ${MODE_NAMES[mode] ?? mode}.`, 'good');
+        log(`Sent mode: ${MODE_NAMES[mode] ?? mode}.`, 'good');
       } catch (error) {
         log(`Mode write failed: ${error.message}`, 'bad');
       }
@@ -671,7 +691,7 @@
     });
 
     setConnectedUi(false);
-    log('App ready. Tap “Connect HotSox”.');
+    log('App ready. Tap Connect.');
   </script>
 </body>
 </html>
