@@ -1,697 +1,655 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>HotSox Controller</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>HotSox RevA</title>
+
   <style>
     :root {
-      --bg: #0b0b0d;
-      --panel: #16161a;
-      --panel-2: #202027;
-      --line: #33333d;
-      --text: #f4f4f5;
-      --muted: #a1a1aa;
-      --good: #38d982;
-      --warn: #ffbb33;
-      --bad: #ff5c70;
-      --accent: #7c8cff;
-      --accent-2: #a3b0ff;
-      --radius: 16px;
+      color-scheme: dark;
+      --bg0: #060808;
+      --panel: #111719;
+      --panel2: #0b1012;
+      --line: #303a3f;
+      --line2: #20292d;
+      --orange: #ff8a00;
+      --orange2: #b85e00;
+      --cyan2: #74e7f1;
+      --text: #e6eef0;
+      --muted: #7b8a91;
+      --danger: #b53620;
     }
 
     * {
       box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      padding: 10px;
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Gill Sans", "Gill Sans MT", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      background:
+        linear-gradient(rgba(255,138,0,0.024) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,138,0,0.024) 1px, transparent 1px),
+        radial-gradient(circle at 12% 0%, rgba(255,138,0,0.12), transparent 34%),
+        radial-gradient(circle at 88% 10%, rgba(0,185,208,0.08), transparent 30%),
+        var(--bg0);
+      background-size: 56px 56px, 56px 56px, auto, auto, auto;
+      color: var(--text);
+      touch-action: manipulation;
     }
 
-    .app {
-      max-width: 760px;
+    .wrap {
+      max-width: 680px;
       margin: 0 auto;
+      padding: 9px 9px 18px;
+    }
+
+    .top {
       display: grid;
+      grid-template-columns: 1fr auto;
       gap: 10px;
-    }
-
-    .topbar,
-    .card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel);
-    }
-
-    .topbar {
-      padding: 10px 12px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .brand-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
+      align-items: start;
+      padding: 8px 0 10px;
+      border-bottom: 1px solid var(--line);
     }
 
     .brand {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
       min-width: 0;
     }
 
-    h1 {
-      margin: 0;
-      font-size: 1.55rem;
-      line-height: 1;
-      letter-spacing: -0.04em;
+    .logo {
+      display: block;
+      width: auto;
+      height: 45px;
+      object-fit: contain;
+      margin-top: 0;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.10));
     }
 
-    .subbrand {
-      color: var(--muted);
-      font-size: 0.76rem;
-      white-space: nowrap;
-    }
-
-    .button-row {
-      display: grid;
-      gap: 7px;
-    }
-
-    .button-row.connection {
-      grid-template-columns: 1.25fr 1fr;
-    }
-
-    .button-row.modes {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    button {
-      appearance: none;
-      border: 1px solid var(--line);
-      background: var(--panel-2);
-      color: var(--text);
-      font: inherit;
-      font-size: 0.9rem;
-      font-weight: 700;
-      border-radius: 12px;
-      min-height: 40px;
-      padding: 0 10px;
-      cursor: pointer;
-      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease, opacity 120ms ease;
-    }
-
-    button:active {
-      transform: translateY(1px);
-    }
-
-    button:hover {
-      border-color: #4c4c59;
-    }
-
-    button.primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #0b1022;
-    }
-
-    button.primary:hover {
-      background: var(--accent-2);
-      border-color: var(--accent-2);
-    }
-
-    button.mode.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #0b1022;
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.42;
-      transform: none;
-    }
-
-    .mini-button {
-      min-height: 30px;
-      padding: 0 9px;
-      font-size: 0.78rem;
-      border-radius: 10px;
-    }
-
-    .status-strip {
+    .brandtext {
+      min-height: 45px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+    }
+
+    .brandmain {
+      margin: 0;
+      color: var(--orange);
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      text-shadow: 0 0 16px rgba(255,138,0,0.22);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.20em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      min-height: 28px;
-      padding: 0 9px;
-      border-radius: 999px;
+      justify-content: center;
       border: 1px solid var(--line);
-      background: var(--panel-2);
-      font-size: 0.78rem;
-      font-weight: 650;
+      background: #0b0e10;
+      border-radius: 2px;
+      color: var(--muted);
+      padding: 7px 8px;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
       white-space: nowrap;
+      letter-spacing: 0.09em;
     }
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--muted);
+    .pill.on {
+      color: var(--cyan2);
+      border-color: rgba(0,185,208,0.6);
+      box-shadow: 0 0 14px rgba(0,185,208,0.10);
     }
 
-    .dot.good {
-      background: var(--good);
-      box-shadow: 0 0 10px rgba(56, 217, 130, 0.58);
+    .pill.err {
+      color: #ffb09a;
+      border-color: rgba(181,54,32,0.8);
     }
 
-    .dot.warn {
-      background: var(--warn);
-      box-shadow: 0 0 10px rgba(255, 187, 51, 0.58);
+    .panel {
+      position: relative;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(255,138,0,0.075), transparent 35%),
+        var(--panel);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
     }
 
-    .dot.bad {
-      background: var(--bad);
-      box-shadow: 0 0 10px rgba(255, 92, 112, 0.58);
+    .panel::before {
+      content: "";
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      width: 42%;
+      height: 3px;
+      background: var(--orange);
+      box-shadow: 0 0 12px rgba(255,138,0,0.35);
     }
 
-    .card {
-      padding: 10px 12px;
-    }
-
-    .section-head {
+    .titleline {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 8px;
       margin-bottom: 8px;
+      color: var(--orange);
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.24em;
     }
 
-    h2 {
-      margin: 0;
-      font-size: 0.92rem;
-      font-weight: 750;
-      letter-spacing: -0.01em;
+    .titleline::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
     }
 
-    .dashboard-grid {
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .metrics {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      grid-template-columns: 1.1fr 1.1fr 1.1fr 0.8fr;
+      gap: 7px;
+      margin-top: 10px;
     }
 
     .metric {
-      padding: 9px 10px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: var(--panel-2);
-      min-height: 60px;
+      min-width: 0;
+      border: 1px solid var(--line2);
+      background: var(--panel2);
+      padding: 8px 7px;
     }
 
-    .metric .label {
+    .label {
       color: var(--muted);
-      font-size: 0.67rem;
+      font-size: 10px;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 5px;
+      letter-spacing: 0.15em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .metric .value {
-      font-size: 1.28rem;
+    .readout {
+      margin-top: 3px;
+      color: var(--cyan2);
+      font-size: 20px;
       line-height: 1;
-      font-weight: 760;
-      letter-spacing: -0.03em;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .metric .value.small {
-      font-size: 0.98rem;
-      letter-spacing: 0;
-      line-height: 1.1;
+    .readout.orange { color: var(--orange); }
+    .readout.danger { color: #ff967c; }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: #0c1012;
+      color: var(--muted);
+      min-height: 32px;
+      min-width: 42px;
+      padding: 7px 9px;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
     }
 
-    .control-grid {
+    button:active {
+      color: var(--orange);
+      border-color: var(--orange2);
+      background: #14100a;
+      transform: translateY(1px);
+    }
+
+    button.primary {
+      color: var(--orange);
+      border-color: var(--orange2);
+    }
+
+    button.cyan {
+      color: var(--cyan2);
+      border-color: rgba(0,185,208,0.55);
+    }
+
+    button.danger {
+      color: #ff9c85;
+      border-color: rgba(181,54,32,0.8);
+      background: rgba(181,54,32,0.13);
+    }
+
+    button.small {
+      min-width: 31px;
+      min-height: 29px;
+      padding: 6px 6px;
+      font-size: 10px;
+    }
+
+    .zones {
       display: grid;
-      gap: 8px;
-    }
-
-    .state-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 7px;
     }
 
-    .state-box {
-      min-height: 46px;
-      padding: 7px 8px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: var(--panel-2);
-      display: grid;
-      align-content: center;
-      gap: 3px;
-    }
-
-    .state-label {
-      color: var(--muted);
-      font-size: 0.64rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .state-value {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.84rem;
-      font-weight: 740;
+    .zone {
+      border: 1px solid var(--line2);
+      background: #0b0f11;
+      padding: 8px;
       min-width: 0;
     }
 
-    .raw {
-      margin-top: 8px;
-      padding: 7px 9px;
-      border-radius: 10px;
-      background: #0d0d11;
-      border: 1px solid var(--line);
-      color: #d4d4d8;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 0.76rem;
-      word-break: break-all;
+    .zone.active {
+      border-color: rgba(0,185,208,0.55);
+      box-shadow: inset 0 0 0 1px rgba(0,185,208,0.08);
     }
 
-    .log {
-      height: 178px;
-      overflow: auto;
-      padding: 8px 9px;
-      border-radius: 12px;
+    .zone.hot {
+      border-color: rgba(255,138,0,0.65);
+      box-shadow: inset 0 0 0 1px rgba(255,138,0,0.08);
+    }
+
+    .zonehead {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .zonename {
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.17em;
+      white-space: nowrap;
+    }
+
+    .zoneval {
+      color: var(--cyan2);
+      font-size: 15px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .zonebuttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+
+    .footbuttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 110px;
+      min-height: 32px;
       border: 1px solid var(--line);
-      background: #0d0d11;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 0.73rem;
+      border-radius: 0;
+      background: #080a0b;
+      color: var(--cyan2);
+      padding: 7px 8px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .reply {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .rawbox {
+      margin-top: 8px;
+    }
+
+    .rawtitle {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      margin: 0;
+      height: 58px;
+      overflow: hidden;
+      white-space: pre;
+      word-break: normal;
+      color: #9ca8ad;
+      font-family: "Consolas", "Menlo", "Roboto Mono", monospace;
+      font-size: 8px;
       line-height: 1.35;
     }
 
-    .log-entry {
-      margin: 0 0 5px;
-      color: #d4d4d8;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .log-entry.good {
-      color: #b6f3d1;
-    }
-
-    .log-entry.warn {
-      color: #ffe0a1;
-    }
-
-    .log-entry.bad {
-      color: #ffb0bc;
-    }
-
-    @media (min-width: 620px) {
-      body {
-        padding: 14px;
-      }
-
-      .dashboard-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+    @media (max-width: 420px) {
+      .wrap { padding: 8px 8px 14px; }
+      .top { grid-template-columns: 1fr; }
+      .pill { justify-self: stretch; }
+      .logo { height: 43px; }
+      .brandtext { min-height: 43px; }
+      .brandmain { font-size: 13px; letter-spacing: 0.17em; }
+      .sub { font-size: 9px; letter-spacing: 0.15em; }
+      .metrics { gap: 5px; }
+      .metric { padding: 7px 5px; }
+      .readout { font-size: 16px; }
+      .zones { gap: 6px; }
+      .zone { padding: 7px 6px; }
+      .zonename { font-size: 11px; letter-spacing: 0.12em; }
+      .zoneval { font-size: 13px; }
+      button { min-width: 31px; min-height: 30px; padding: 6px 5px; font-size: 10px; letter-spacing: 0.06em; }
+      pre { font-size: 7.5px; }
     }
   </style>
 </head>
 <body>
-  <main class="app">
-    <section class="topbar">
-      <div class="brand-row">
-        <div class="brand">
-          <h1>HotSox</h1>
-          <div class="subbrand">SET prototype BLE controller</div>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <img class="logo" src="data:image/png;base64,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" alt="HotSox logo">
+        <div class="brandtext">
+          <div class="brandmain">BLE heat controller</div>
+          <div class="sub">RevA prototype</div>
         </div>
       </div>
+      <div class="pill" id="conn">Disconnected</div>
+    </div>
 
-      <div class="button-row connection">
-        <button id="connectButton" class="primary">Connect</button>
-        <button id="disconnectButton" disabled>Disconnect</button>
+    <div class="panel">
+      <div class="titleline">Link</div>
+      <div class="row">
+        <button class="primary" onclick="connectHotSox()">Connect</button>
+        <button onclick="disconnectHotSox()">Disc</button>
+        <button class="danger" onclick="sendCmd('OFF')">Off</button>
+        <button onclick="sendCmd('?')">?</button>
       </div>
+      <div class="reply" id="reply">--</div>
+    </div>
 
-      <div class="status-strip">
-        <div id="connectionPill" class="pill">
-          <span id="connectionDot" class="dot bad"></span>
-          <span id="connectionText">Disconnected</span>
+    <div class="metrics">
+      <div class="metric"><div class="label">Volt</div><div class="readout" id="busV">--</div></div>
+      <div class="metric"><div class="label">Amp</div><div class="readout" id="currentA">--</div></div>
+      <div class="metric"><div class="label">Watt</div><div class="readout" id="powerW">--</div></div>
+      <div class="metric"><div class="label">Fault</div><div class="readout orange" id="fault">--</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="titleline">Zones</div>
+      <div class="zones">
+        <div class="zone" id="zoneLS">
+          <div class="zonehead"><div class="zonename">L sole</div><div class="zoneval" id="ls">--</div></div>
+          <div class="zonebuttons">
+            <button class="small danger" onclick="sendCmd('LS=0')">0</button>
+            <button class="small" onclick="sendCmd('SOLO=LS:10')">10</button>
+            <button class="small" onclick="sendCmd('SOLO=LS:25')">25</button>
+            <button class="small" onclick="sendCmd('SOLO=LS:40')">40</button>
+            <button class="small cyan" onclick="sendCmd('SOLO=LS:100')">100</button>
+          </div>
         </div>
 
-        <div id="deviceName" class="pill">No device</div>
-
-        <div id="detectedPill" class="pill">
-          <span id="detectedDot" class="dot"></span>
-          <span id="detectedText">Heater ?</span>
+        <div class="zone" id="zoneLT">
+          <div class="zonehead"><div class="zonename">L toe</div><div class="zoneval" id="lt">--</div></div>
+          <div class="zonebuttons">
+            <button class="small danger" onclick="sendCmd('LT=0')">0</button>
+            <button class="small" onclick="sendCmd('SOLO=LT:10')">10</button>
+            <button class="small" onclick="sendCmd('SOLO=LT:25')">25</button>
+            <button class="small" onclick="sendCmd('SOLO=LT:40')">40</button>
+            <button class="small cyan" onclick="sendCmd('SOLO=LT:100')">100</button>
+          </div>
         </div>
 
-        <div id="outputPill" class="pill">
-          <span id="outputDot" class="dot"></span>
-          <span id="outputText">Output —</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="card control-grid">
-      <div class="section-head">
-        <h2>Heat mode</h2>
-        <button id="readStatusButton" class="mini-button" disabled>Read status</button>
-      </div>
-
-      <div class="button-row modes">
-        <button class="mode" data-mode="0" disabled>OFF</button>
-        <button class="mode" data-mode="1" disabled>LOW</button>
-        <button class="mode" data-mode="2" disabled>MED</button>
-        <button class="mode" data-mode="3" disabled>HIGH</button>
-      </div>
-
-      <div class="state-row">
-        <div class="state-box">
-          <div class="state-label">Mode</div>
-          <div id="modeValue" class="state-value">—</div>
+        <div class="zone" id="zoneRS">
+          <div class="zonehead"><div class="zonename">R sole</div><div class="zoneval" id="rs">--</div></div>
+          <div class="zonebuttons">
+            <button class="small danger" onclick="sendCmd('RS=0')">0</button>
+            <button class="small" onclick="sendCmd('SOLO=RS:10')">10</button>
+            <button class="small" onclick="sendCmd('SOLO=RS:25')">25</button>
+            <button class="small" onclick="sendCmd('SOLO=RS:40')">40</button>
+            <button class="small cyan" onclick="sendCmd('SOLO=RS:100')">100</button>
+          </div>
         </div>
 
-        <div class="state-box">
-          <div class="state-label">INA</div>
-          <div id="inaValue" class="state-value">—</div>
-        </div>
-
-        <div class="state-box">
-          <div class="state-label">Packet</div>
-          <div id="rawShortValue" class="state-value">—</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="section-head">
-        <h2>Electrical status</h2>
-      </div>
-
-      <div class="dashboard-grid">
-        <div class="metric">
-          <div class="label">Current</div>
-          <div id="currentValue" class="value">—</div>
-        </div>
-
-        <div class="metric">
-          <div class="label">Bus voltage</div>
-          <div id="voltageValue" class="value">—</div>
-        </div>
-
-        <div class="metric">
-          <div class="label">Approx. power</div>
-          <div id="powerValue" class="value">—</div>
-        </div>
-
-        <div class="metric">
-          <div class="label">Raw status packet</div>
-          <div id="rawPacket" class="value small">—</div>
+        <div class="zone" id="zoneRT">
+          <div class="zonehead"><div class="zonename">R toe</div><div class="zoneval" id="rt">--</div></div>
+          <div class="zonebuttons">
+            <button class="small danger" onclick="sendCmd('RT=0')">0</button>
+            <button class="small" onclick="sendCmd('SOLO=RT:10')">10</button>
+            <button class="small" onclick="sendCmd('SOLO=RT:25')">25</button>
+            <button class="small" onclick="sendCmd('SOLO=RT:40')">40</button>
+            <button class="small cyan" onclick="sendCmd('SOLO=RT:100')">100</button>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="card">
-      <div class="section-head">
-        <h2>Event log</h2>
-        <button id="clearLogButton" class="mini-button">Clear</button>
+    <div class="panel">
+      <div class="titleline">Foot modes</div>
+      <div class="footbuttons">
+        <button onclick="sendCmd('LEFT=M')">L M</button>
+        <button onclick="sendCmd('RIGHT=M')">R M</button>
+        <button onclick="sendCmd('ALL=M')">A M</button>
+        <button class="cyan" onclick="sendCmd('ALL=H')">A H</button>
+        <button onclick="sendCmd('CLEAR')">Clr</button>
+      </div>
+      <div class="reply">L/R/A = left/right/all. M = maintain. H = high boost.</div>
+    </div>
+
+    <div class="panel">
+      <div class="titleline">Manual</div>
+      <div class="row">
+        <input id="cmd" value="?" autocomplete="off" autocapitalize="characters">
+        <button onclick="sendManual()">Send</button>
       </div>
 
-      <div id="log" class="log"></div>
-    </section>
-  </main>
+      <div class="rawbox">
+        <div class="rawtitle">Raw telemetry</div>
+        <pre id="raw">--</pre>
+      </div>
+    </div>
+  </div>
 
-  <script>
-    const SERVICE_UUID = 'f05a0001-5eed-4a55-beef-534554485368';
-    const MODE_UUID    = 'f05a0002-5eed-4a55-beef-534554485368';
-    const STATUS_UUID  = 'f05a0003-5eed-4a55-beef-534554485368';
+<script>
+const SERVICE_UUID = "6f4c0001-b5a3-f393-e0a9-e50e24dcca9e";
+const CONTROL_UUID = "6f4c0002-b5a3-f393-e0a9-e50e24dcca9e";
+const TELEMETRY_UUID = "6f4c0003-b5a3-f393-e0a9-e50e24dcca9e";
 
-    const MODE_NAMES = ['OFF', 'LOW', 'MED', 'HIGH'];
+let device = null;
+let controlChar = null;
+let telemetryChar = null;
+let rawLines = [];
 
-    let bluetoothDevice = null;
-    let gattServer = null;
-    let hotsoxService = null;
-    let modeCharacteristic = null;
-    let statusCharacteristic = null;
+function el(id) {
+  return document.getElementById(id);
+}
 
-    let connected = false;
-    let lastStatus = null;
+function setText(id, text) {
+  el(id).textContent = text;
+}
 
-    const $ = (id) => document.getElementById(id);
+function setConn(text, cls) {
+  const c = el("conn");
+  c.textContent = text;
+  c.className = "pill" + (cls ? " " + cls : "");
+}
 
-    function timestamp() {
-      return new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
+async function connectHotSox() {
+  try {
+    if (!navigator.bluetooth) {
+      setConn("No Web BLE", "err");
+      setText("raw", "Open this HTTPS page in Chrome on Android.");
+      return;
     }
 
-    function log(message, level = '') {
-      const entry = document.createElement('div');
-      entry.className = `log-entry ${level}`.trim();
-      entry.textContent = `[${timestamp()}] ${message}`;
-
-      const logBox = $('log');
-      logBox.appendChild(entry);
-      logBox.scrollTop = logBox.scrollHeight;
-    }
-
-    function setConnectedUi(isConnected) {
-      connected = isConnected;
-
-      $('connectButton').disabled = isConnected;
-      $('disconnectButton').disabled = !isConnected;
-      $('readStatusButton').disabled = !isConnected;
-
-      document.querySelectorAll('button.mode').forEach((button) => {
-        button.disabled = !isConnected;
-      });
-
-      $('connectionText').textContent = isConnected ? 'Connected' : 'Disconnected';
-      $('connectionDot').className = `dot ${isConnected ? 'good' : 'bad'}`;
-
-      if (!isConnected) {
-        $('deviceName').textContent = bluetoothDevice?.name || 'No device';
-      }
-    }
-
-    function formatPacket(dataView) {
-      const bytes = [];
-      for (let i = 0; i < dataView.byteLength; i++) {
-        bytes.push(dataView.getUint8(i).toString(16).padStart(2, '0').toUpperCase());
-      }
-      return bytes.join('-');
-    }
-
-    function decodeStatus(dataView) {
-      if (dataView.byteLength < 6) {
-        throw new Error(`Status packet too short: ${dataView.byteLength} bytes`);
-      }
-
-      const flags = dataView.getUint8(0);
-      const mode = dataView.getUint8(1);
-      const currentMa = dataView.getUint16(2, true);
-      const busMv = dataView.getUint16(4, true);
-
-      return {
-        raw: formatPacket(dataView),
-        detected: Boolean(flags & 0x01),
-        heatModeSelected: Boolean(flags & 0x02),
-        outputOn: Boolean(flags & 0x04),
-        inaValid: Boolean(flags & 0x08),
-        mode,
-        modeName: MODE_NAMES[mode] ?? `UNKNOWN(${mode})`,
-        currentMa,
-        busMv,
-        busV: busMv / 1000,
-        powerW: (currentMa * busMv) / 1000000
-      };
-    }
-
-    function setActiveModeButton(mode) {
-      document.querySelectorAll('button.mode').forEach((button) => {
-        button.classList.toggle('active', Number(button.dataset.mode) === mode);
-      });
-    }
-
-    function updateStatusUi(status) {
-      const previous = lastStatus;
-      lastStatus = status;
-
-      $('detectedText').textContent = status.detected ? 'Heater detected' : 'Heater absent';
-      $('detectedDot').className = `dot ${status.detected ? 'good' : 'bad'}`;
-
-      $('outputText').textContent = status.outputOn ? 'Output ON' : 'Output OFF';
-      $('outputDot').className = `dot ${status.outputOn ? 'warn' : ''}`.trim();
-
-      $('modeValue').textContent = status.modeName;
-      setActiveModeButton(status.mode);
-
-      $('inaValue').textContent = status.inaValid ? 'Valid' : 'Invalid';
-
-      $('currentValue').textContent = `${status.currentMa} mA`;
-      $('voltageValue').textContent = `${status.busV.toFixed(3)} V`;
-      $('powerValue').textContent = `${status.powerW.toFixed(2)} W`;
-
-      $('rawPacket').textContent = status.raw;
-      $('rawShortValue').textContent = status.raw.slice(0, 5);
-
-      if (previous) {
-        if (previous.detected !== status.detected) {
-          log(
-            status.detected ? 'Heater detected.' : 'Heater no longer detected.',
-            status.detected ? 'good' : 'bad'
-          );
-        }
-
-        if (previous.mode !== status.mode) {
-          log(`Mode changed: ${previous.modeName} → ${status.modeName}.`, 'good');
-        }
-
-        if (previous.outputOn !== status.outputOn) {
-          log(`Output ${status.outputOn ? 'ON' : 'OFF'}.`);
-        }
-      }
-    }
-
-    function handleStatusValue(dataView, source = 'status') {
-      try {
-        const status = decodeStatus(dataView);
-        updateStatusUi(status);
-        log(
-          `${source}: ${status.raw} | ${status.modeName}, ` +
-          `${status.currentMa} mA, ${status.busV.toFixed(3)} V`
-        );
-      } catch (error) {
-        log(`Failed to decode status: ${error.message}`, 'bad');
-      }
-    }
-
-    async function connectHotSox() {
-      if (!navigator.bluetooth) {
-        log('This browser does not expose Web Bluetooth.', 'bad');
-        return;
-      }
-
-      try {
-        log('Opening Bluetooth picker...');
-
-        bluetoothDevice = await navigator.bluetooth.requestDevice({
-          filters: [{ namePrefix: 'HotSox' }],
-          optionalServices: [SERVICE_UUID]
-        });
-
-        $('deviceName').textContent = bluetoothDevice.name || 'Unnamed BLE device';
-        log(`Selected ${bluetoothDevice.name || 'unnamed device'}. Connecting...`);
-
-        bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
-
-        gattServer = await bluetoothDevice.gatt.connect();
-        hotsoxService = await gattServer.getPrimaryService(SERVICE_UUID);
-        modeCharacteristic = await hotsoxService.getCharacteristic(MODE_UUID);
-        statusCharacteristic = await hotsoxService.getCharacteristic(STATUS_UUID);
-
-        await statusCharacteristic.startNotifications();
-        statusCharacteristic.addEventListener(
-          'characteristicvaluechanged',
-          onStatusNotification
-        );
-
-        setConnectedUi(true);
-        log('Connected. Live notifications enabled.', 'good');
-
-        const initialStatus = await statusCharacteristic.readValue();
-        handleStatusValue(initialStatus, 'initial');
-      } catch (error) {
-        log(`Connection failed: ${error.message}`, 'bad');
-        setConnectedUi(false);
-      }
-    }
-
-    function onDisconnected() {
-      setConnectedUi(false);
-      log('Bluetooth disconnected.', 'warn');
-    }
-
-    function disconnectHotSox() {
-      if (bluetoothDevice?.gatt?.connected) {
-        bluetoothDevice.gatt.disconnect();
-      } else {
-        setConnectedUi(false);
-      }
-    }
-
-    function onStatusNotification(event) {
-      handleStatusValue(event.target.value, 'notify');
-    }
-
-    async function readStatus() {
-      if (!statusCharacteristic) {
-        log('Cannot read status: not connected.', 'bad');
-        return;
-      }
-
-      try {
-        const value = await statusCharacteristic.readValue();
-        handleStatusValue(value, 'manual');
-      } catch (error) {
-        log(`Status read failed: ${error.message}`, 'bad');
-      }
-    }
-
-    async function writeMode(mode) {
-      if (!modeCharacteristic) {
-        log('Cannot send mode: not connected.', 'bad');
-        return;
-      }
-
-      try {
-        const payload = Uint8Array.of(mode);
-        await modeCharacteristic.writeValue(payload);
-        log(`Sent mode: ${MODE_NAMES[mode] ?? mode}.`, 'good');
-      } catch (error) {
-        log(`Mode write failed: ${error.message}`, 'bad');
-      }
-    }
-
-    $('connectButton').addEventListener('click', connectHotSox);
-    $('disconnectButton').addEventListener('click', disconnectHotSox);
-    $('readStatusButton').addEventListener('click', readStatus);
-
-    document.querySelectorAll('button.mode').forEach((button) => {
-      button.addEventListener('click', () => {
-        writeMode(Number(button.dataset.mode));
-      });
+    setConn("Choosing");
+    device = await navigator.bluetooth.requestDevice({
+      filters: [{ namePrefix: "HotSox" }],
+      optionalServices: [SERVICE_UUID]
     });
 
-    $('clearLogButton').addEventListener('click', () => {
-      $('log').innerHTML = '';
-      log('Log cleared.');
-    });
+    device.addEventListener("gattserverdisconnected", onDisconnected);
 
-    setConnectedUi(false);
-    log('App ready. Tap Connect.');
-  </script>
+    setConn("Connecting");
+    const server = await device.gatt.connect();
+    const service = await server.getPrimaryService(SERVICE_UUID);
+
+    controlChar = await service.getCharacteristic(CONTROL_UUID);
+    telemetryChar = await service.getCharacteristic(TELEMETRY_UUID);
+
+    telemetryChar.addEventListener("characteristicvaluechanged", onTelemetry);
+    await telemetryChar.startNotifications();
+
+    setConn("Connected", "on");
+    await sendCmd("?");
+  } catch (err) {
+    setConn("Error", "err");
+    setText("raw", String(err));
+    setText("reply", String(err));
+  }
+}
+
+function disconnectHotSox() {
+  if (device && device.gatt.connected) {
+    device.gatt.disconnect();
+  }
+}
+
+function onDisconnected() {
+  setConn("Disconnected");
+  controlChar = null;
+  telemetryChar = null;
+}
+
+async function sendManual() {
+  await sendCmd(el("cmd").value);
+}
+
+async function sendCmd(cmd) {
+  if (!controlChar) {
+    setText("reply", "Not connected");
+    return;
+  }
+
+  await controlChar.writeValue(new TextEncoder().encode(cmd));
+  setText("reply", "sent " + cmd);
+}
+
+function onTelemetry(event) {
+  const s = new TextDecoder().decode(event.target.value);
+  parseTelemetry(s);
+}
+
+function parseTelemetry(s) {
+  rawLines.push(s);
+  rawLines = rawLines.slice(-5);
+  setText("raw", rawLines.join("\n"));
+
+  const data = {};
+  for (const p of s.split(",")) {
+    const eq = p.indexOf("=");
+    if (eq > 0) {
+      data[p.slice(0, eq)] = p.slice(eq + 1);
+    }
+  }
+
+  if (data.V !== undefined) setText("busV", fmt(data.V, 2));
+  if (data.I !== undefined) setText("currentA", fmt(data.I, 3));
+  if (data.P !== undefined) setText("powerW", fmt(data.P, 3));
+  if (data.F !== undefined) {
+    setText("fault", data.F);
+    el("fault").className = data.F === "0" ? "readout orange" : "readout danger";
+  }
+  if (data.R !== undefined) setText("reply", data.R);
+
+  if (data.D !== undefined || data.M !== undefined) {
+    const d = (data.D || "---/---/---/---").split("/");
+    const m = (data.M || "-/-/-/-").split("/");
+
+    updateZone("LS", "ls", d[0], m[0]);
+    updateZone("LT", "lt", d[1], m[1]);
+    updateZone("RS", "rs", d[2], m[2]);
+    updateZone("RT", "rt", d[3], m[3]);
+  }
+}
+
+function fmt(v, n) {
+  const x = Number(v);
+  if (Number.isNaN(x)) return "--";
+  return x.toFixed(n);
+}
+
+function updateZone(zoneId, valueId, duty, mode) {
+  if (duty === undefined) duty = "---";
+  if (mode === undefined) mode = "-";
+
+  const dNum = Number(duty);
+  setText(valueId, duty + " " + mode);
+
+  const z = el("zone" + zoneId);
+  z.className = "zone";
+  if (!Number.isNaN(dNum) && dNum > 0) {
+    z.classList.add(dNum >= 40 ? "hot" : "active");
+  }
+}
+
+if (!navigator.bluetooth) {
+  setConn("No Web BLE", "err");
+  setText("raw", "Use Chrome on Android and load this page from HTTPS.");
+}
+</script>
 </body>
 </html>
