@@ -3,532 +3,129 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>HotSox RevA</title>
-
+  <title>HotSox</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg0: #060808;
-      --panel: #111719;
-      --panel2: #0b1012;
-      --line: #303a3f;
-      --line2: #20292d;
+      --bg: #060808;
+      --panel: #101618;
+      --panel2: #0a0f11;
+      --line: #263238;
+      --line2: #1c262a;
       --orange: #ff8a00;
-      --orange2: #b85e00;
-      --cyan2: #74e7f1;
+      --cyan: #74e7f1;
       --text: #e6eef0;
       --muted: #7b8a91;
-      --danger: #b53620;
+      --bad: #ff8b73;
     }
-
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
-      margin: 0;
-      min-height: 100vh;
+      margin: 0; min-height: 100vh; color: var(--text);
       font-family: "Gill Sans", "Gill Sans MT", "Avenir Next", "Segoe UI", system-ui, sans-serif;
       background:
-        linear-gradient(rgba(255,138,0,0.024) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,138,0,0.024) 1px, transparent 1px),
-        radial-gradient(circle at 12% 0%, rgba(255,138,0,0.12), transparent 34%),
-        radial-gradient(circle at 88% 10%, rgba(0,185,208,0.08), transparent 30%),
-        var(--bg0);
-      background-size: 56px 56px, 56px 56px, auto, auto, auto;
-      color: var(--text);
+        linear-gradient(rgba(255,138,0,.023) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,138,0,.023) 1px, transparent 1px),
+        radial-gradient(circle at 8% 0%, rgba(255,138,0,.12), transparent 34%),
+        radial-gradient(circle at 92% 4%, rgba(0,185,208,.08), transparent 30%),
+        var(--bg);
+      background-size: 52px 52px, 52px 52px, auto, auto, auto;
       touch-action: manipulation;
     }
-
-    .wrap {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 9px 9px 18px;
-    }
-
-    .top {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: start;
-      padding: 8px 0 10px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 10px;
-      align-items: start;
-      min-width: 0;
-    }
-
-    .logo {
-      display: block;
-      width: auto;
-      height: 45px;
-      object-fit: contain;
-      margin-top: 0;
-      filter: drop-shadow(0 0 10px rgba(255,255,255,0.10));
-    }
-
-    .logoFallback {
-      height: 45px;
-      width: 45px;
-      display: grid;
-      place-items: center;
-      color: white;
-      font-size: 34px;
-      line-height: 1;
-    }
-
-    .brandtext {
-      min-height: 45px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 0;
-    }
-
-    .brandmain {
-      margin: 0;
-      color: var(--orange);
-      font-size: 14px;
-      line-height: 1;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      text-shadow: 0 0 16px rgba(255,138,0,0.22);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sub {
-      color: var(--muted);
-      font-size: 10px;
-      line-height: 1;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.20em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--line);
-      background: #0b0e10;
-      border-radius: 2px;
-      color: var(--muted);
-      padding: 7px 8px;
-      font-size: 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      white-space: nowrap;
-      letter-spacing: 0.09em;
-    }
-
-    .pill.on {
-      color: var(--cyan2);
-      border-color: rgba(0,185,208,0.6);
-      box-shadow: 0 0 14px rgba(0,185,208,0.10);
-    }
-
-    .pill.err {
-      color: #ffb09a;
-      border-color: rgba(181,54,32,0.8);
-    }
-
-    .panel {
-      position: relative;
-      margin-top: 10px;
-      padding: 10px;
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(90deg, rgba(255,138,0,0.075), transparent 35%),
-        var(--panel);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      left: -1px;
-      top: -1px;
-      width: 42%;
-      height: 3px;
-      background: var(--orange);
-      box-shadow: 0 0 12px rgba(255,138,0,0.35);
-    }
-
-    .titleline {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-      color: var(--orange);
-      text-transform: uppercase;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.24em;
-    }
-
-    .titleline::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--line);
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: 1.1fr 1.1fr 1.1fr 0.8fr;
-      gap: 7px;
-      margin-top: 10px;
-    }
-
-    .metric {
-      min-width: 0;
-      border: 1px solid var(--line2);
-      background: var(--panel2);
-      padding: 8px 7px;
-    }
-
-    .label {
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .readout {
-      margin-top: 3px;
-      color: var(--cyan2);
-      font-size: 20px;
-      line-height: 1;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .readout.orange { color: var(--orange); }
-    .readout.danger { color: #ff967c; }
-
+    .wrap { max-width: 720px; margin: 0 auto; padding: 7px 8px 16px; }
+    .top { display: flex; align-items: center; gap: 10px; padding: 5px 0 8px; border-bottom: 1px solid var(--line); }
+    .logo { height: 38px; width: auto; display:block; filter: drop-shadow(0 0 10px rgba(255,255,255,.10)); }
+    .logotxt { color:white; font-weight:900; font-size:20px; }
+    .brand { color: var(--orange); font-weight: 900; font-size: 13px; line-height: 1; letter-spacing: .22em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .panel { position: relative; margin-top: 7px; padding: 8px; border: 1px solid var(--line); background: linear-gradient(90deg, rgba(255,138,0,.06), transparent 35%), var(--panel); }
+    .panel::before { content:""; position:absolute; left:-1px; top:-1px; width:36%; height:2px; background:var(--orange); box-shadow:0 0 9px rgba(255,138,0,.35); }
+    .title { display:flex; align-items:center; gap:7px; margin-bottom:6px; color:var(--orange); font-weight:900; font-size:10px; letter-spacing:.22em; text-transform:uppercase; }
+    .title::after { content:""; flex:1; height:1px; background:var(--line); }
+    .row { display:flex; flex-wrap:wrap; gap:5px; align-items:center; }
     button {
-      appearance: none;
-      border: 1px solid var(--line);
-      border-radius: 0;
-      background: #0c1012;
-      color: var(--muted);
-      min-height: 32px;
-      min-width: 42px;
-      padding: 7px 9px;
-      font: inherit;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
+      appearance:none; border:1px solid var(--line); border-radius:0; background:#0b1012; color:var(--muted);
+      min-height:29px; min-width:34px; padding:5px 7px; font:inherit; font-size:10px; font-weight:900; letter-spacing:.07em; text-transform:uppercase;
     }
-
-    button:active {
-      color: var(--orange);
-      border-color: var(--orange2);
-      background: #14100a;
-      transform: translateY(1px);
-    }
-
-    button.primary {
-      color: var(--orange);
-      border-color: var(--orange2);
-    }
-
-    button.danger {
-      color: #ff9c85;
-      border-color: rgba(181,54,32,0.8);
-      background: rgba(181,54,32,0.13);
-    }
-
-    button.small {
-      min-width: 31px;
-      min-height: 29px;
-      padding: 6px 6px;
-      font-size: 10px;
-    }
-
-    .zones {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7px;
-    }
-
-    .zone {
-      border: 1px solid var(--line2);
-      background: #0b0f11;
-      padding: 8px;
-      min-width: 0;
-    }
-
-    .zone.active {
-      border-color: rgba(0,185,208,0.62);
-      box-shadow: inset 0 0 0 1px rgba(0,185,208,0.09), 0 0 10px rgba(0,185,208,0.05);
-    }
-
-    .zone.hot {
-      border-color: rgba(255,138,0,0.72);
-      box-shadow: inset 0 0 0 1px rgba(255,138,0,0.10), 0 0 10px rgba(255,138,0,0.05);
-    }
-
-    .zonehead {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .zonename {
-      color: var(--orange);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.17em;
-      white-space: nowrap;
-    }
-
-    .zoneval {
-      color: var(--cyan2);
-      font-size: 15px;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .zonebuttons {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 4px;
-    }
-
-    .footgrid {
-      display: grid;
-      grid-template-columns: auto repeat(3, 1fr);
-      gap: 5px;
-      align-items: stretch;
-    }
-
-    .footlabel {
-      display: flex;
-      align-items: center;
-      color: var(--orange);
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding-right: 4px;
-      min-width: 31px;
-    }
-
-    input {
-      flex: 1;
-      min-width: 110px;
-      min-height: 32px;
-      border: 1px solid var(--line);
-      border-radius: 0;
-      background: #080a0b;
-      color: var(--cyan2);
-      padding: 7px 8px;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    .reply {
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .rawbox {
-      margin-top: 8px;
-    }
-
-    .rawtitle {
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 5px;
-    }
-
-    pre {
-      margin: 0;
-      height: 58px;
-      overflow: hidden;
-      white-space: pre;
-      word-break: normal;
-      color: #9ca8ad;
-      font-family: "Consolas", "Menlo", "Roboto Mono", monospace;
-      font-size: 8px;
-      line-height: 1.35;
-    }
-
-    @media (max-width: 420px) {
-      .wrap { padding: 8px 8px 14px; }
-      .top { grid-template-columns: 1fr; }
-      .pill { justify-self: stretch; }
-      .logo { height: 43px; }
-      .logoFallback { height: 43px; width: 43px; }
-      .brandtext { min-height: 43px; }
-      .brandmain { font-size: 13px; letter-spacing: 0.17em; }
-      .sub { font-size: 9px; letter-spacing: 0.15em; }
-      .metrics { gap: 5px; }
-      .metric { padding: 7px 5px; }
-      .readout { font-size: 16px; }
-      .zones { gap: 6px; }
-      .zone { padding: 7px 6px; }
-      .zonename { font-size: 11px; letter-spacing: 0.12em; }
-      .zoneval { font-size: 13px; }
-      button { min-width: 31px; min-height: 30px; padding: 6px 5px; font-size: 10px; letter-spacing: 0.06em; }
-      pre { font-size: 7.5px; }
+    button:active { transform: translateY(1px); color:var(--orange); border-color:var(--orange); background:#141009; }
+    button.hot { color:var(--orange); border-color:rgba(255,138,0,.65); }
+    button.bad { color:var(--bad); border-color:rgba(255,139,115,.65); }
+    button.on { color:var(--cyan); border-color:rgba(116,231,241,.65); box-shadow:0 0 10px rgba(116,231,241,.08); }
+    .metrics { display:grid; grid-template-columns: repeat(6, 1fr); gap:5px; margin-top:7px; }
+    .metric { border:1px solid var(--line2); background:var(--panel2); padding:6px 5px; min-width:0; }
+    .lab { color:var(--muted); font-size:8px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .val { margin-top:2px; color:var(--cyan); font-size:14px; line-height:1; font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .val.hot { color:var(--orange); } .val.bad { color:var(--bad); }
+    .zones { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+    .zone { border:1px solid var(--line2); background:#0a0f11; padding:6px; min-width:0; }
+    .zone.active { border-color:rgba(116,231,241,.62); box-shadow:inset 0 0 0 1px rgba(116,231,241,.08); }
+    .zone.hot { border-color:rgba(255,138,0,.72); box-shadow:inset 0 0 0 1px rgba(255,138,0,.10); }
+    .zhead { display:flex; justify-content:space-between; gap:6px; align-items:baseline; margin-bottom:4px; }
+    .zn { color:var(--orange); font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.14em; white-space:nowrap; }
+    .zv { color:var(--cyan); font-size:13px; font-weight:900; white-space:nowrap; }
+    .zm { color:var(--muted); font-size:8px; font-weight:900; letter-spacing:.06em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:5px; }
+    .zbtns { display:grid; grid-template-columns: repeat(5,1fr); gap:3px; }
+    .zbtns button { min-width:0; padding:5px 3px; }
+    .foot { display:grid; grid-template-columns:auto repeat(3,1fr); gap:4px; align-items:stretch; }
+    .fl { display:flex; align-items:center; color:var(--orange); font-size:10px; font-weight:900; letter-spacing:.13em; text-transform:uppercase; padding-right:3px; min-width:22px; }
+    input { flex:1; min-width:100px; min-height:29px; border:1px solid var(--line); border-radius:0; background:#070a0b; color:var(--cyan); padding:5px 7px; font:inherit; font-size:11px; font-weight:900; text-transform:uppercase; }
+    .reply { margin-top:5px; color:var(--muted); font-size:10px; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    pre { margin:0; height:58px; overflow:hidden; white-space:pre; color:#9ca8ad; font-family:Consolas, Menlo, monospace; font-size:7.5px; line-height:1.35; }
+    @media (max-width:430px) {
+      .wrap { padding:6px 7px 14px; } .logo { height:34px; } .brand { font-size:12px; letter-spacing:.17em; }
+      .metrics { grid-template-columns: repeat(3, 1fr); } .val { font-size:13px; }
+      button { font-size:9.5px; min-height:28px; padding:5px 5px; } .zones { gap:5px; } .zone { padding:5px; }
+      .zn { font-size:9.5px; letter-spacing:.10em; } .zv { font-size:12px; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <img class="logo" src="data:image/png;base64,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" alt="HotSox logo">
-        <div class="brandtext">
-          <div class="brandmain">BLE heat controller</div>
-          <div class="sub">RevA prototype</div>
-        </div>
-      </div>
-      <div class="pill" id="conn">Disconnected</div>
-    </div>
+    <div class="top"><img class="logo" src="data:image/png;base64,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" alt="logo"><div class="brand">BLE heat ctrl</div></div>
 
     <div class="panel">
-      <div class="titleline">Link</div>
+      <div class="title">Link</div>
       <div class="row">
-        <button class="primary" onclick="connectHotSox()">Connect</button>
-        <button onclick="disconnectHotSox()">Disc</button>
-        <button class="danger" onclick="sendCmd('OFF')">Off</button>
+        <button id="connectButton" class="hot" onclick="toggleConnection()">Connect</button>
+        <button class="bad" onclick="sendCmd('OFF')">Off</button>
+        <button onclick="sendCmd('SCAN')">Scan</button>
+        <button onclick="sendCmd('CHECK')">Check</button>
         <button onclick="sendCmd('?')">?</button>
       </div>
       <div class="reply" id="reply">--</div>
     </div>
 
     <div class="metrics">
-      <div class="metric"><div class="label">Volt</div><div class="readout" id="busV">--</div></div>
-      <div class="metric"><div class="label">Amp</div><div class="readout" id="currentA">--</div></div>
-      <div class="metric"><div class="label">Watt</div><div class="readout" id="powerW">--</div></div>
-      <div class="metric"><div class="label">Fault</div><div class="readout orange" id="fault">--</div></div>
+      <div class="metric"><div class="lab">V</div><div class="val" id="busV">--</div></div>
+      <div class="metric"><div class="lab">A filt</div><div class="val" id="currentA">--</div></div>
+      <div class="metric"><div class="lab">A raw</div><div class="val" id="rawA">--</div></div>
+      <div class="metric"><div class="lab">W</div><div class="val" id="powerW">--</div></div>
+      <div class="metric"><div class="lab">Lim</div><div class="val hot" id="lim">--</div></div>
+      <div class="metric"><div class="lab">F</div><div class="val hot" id="fault">--</div></div>
     </div>
 
     <div class="panel">
-      <div class="titleline">Zones</div>
+      <div class="title">Zones</div>
       <div class="zones">
-        <div class="zone" id="zoneLS">
-          <div class="zonehead"><div class="zonename">L sole</div><div class="zoneval" id="ls">--</div></div>
-          <div class="zonebuttons">
-            <button class="small" onclick="sendCmd('LS=0')">0</button>
-            <button class="small" onclick="sendCmd('LS=10')">10</button>
-            <button class="small" onclick="sendCmd('LS=25')">25</button>
-            <button class="small" onclick="sendCmd('LS=40')">40</button>
-            <button class="small" onclick="sendCmd('LS=100')">100</button>
-          </div>
-        </div>
-
-        <div class="zone" id="zoneLT">
-          <div class="zonehead"><div class="zonename">L toe</div><div class="zoneval" id="lt">--</div></div>
-          <div class="zonebuttons">
-            <button class="small" onclick="sendCmd('LT=0')">0</button>
-            <button class="small" onclick="sendCmd('LT=10')">10</button>
-            <button class="small" onclick="sendCmd('LT=25')">25</button>
-            <button class="small" onclick="sendCmd('LT=40')">40</button>
-            <button class="small" onclick="sendCmd('LT=100')">100</button>
-          </div>
-        </div>
-
-        <div class="zone" id="zoneRS">
-          <div class="zonehead"><div class="zonename">R sole</div><div class="zoneval" id="rs">--</div></div>
-          <div class="zonebuttons">
-            <button class="small" onclick="sendCmd('RS=0')">0</button>
-            <button class="small" onclick="sendCmd('RS=10')">10</button>
-            <button class="small" onclick="sendCmd('RS=25')">25</button>
-            <button class="small" onclick="sendCmd('RS=40')">40</button>
-            <button class="small" onclick="sendCmd('RS=100')">100</button>
-          </div>
-        </div>
-
-        <div class="zone" id="zoneRT">
-          <div class="zonehead"><div class="zonename">R toe</div><div class="zoneval" id="rt">--</div></div>
-          <div class="zonebuttons">
-            <button class="small" onclick="sendCmd('RT=0')">0</button>
-            <button class="small" onclick="sendCmd('RT=10')">10</button>
-            <button class="small" onclick="sendCmd('RT=25')">25</button>
-            <button class="small" onclick="sendCmd('RT=40')">40</button>
-            <button class="small" onclick="sendCmd('RT=100')">100</button>
-          </div>
-        </div>
+        <div class="zone" id="zoneLS"><div class="zhead"><div class="zn">L sole</div><div class="zv" id="ls">--</div></div><div class="zm" id="lsMeta">--</div><div class="zbtns"><button onclick="sendCmd('LS=0')">0</button><button onclick="sendCmd('LS=10')">10</button><button onclick="sendCmd('LS=25')">25</button><button onclick="sendCmd('LS=40')">40</button><button onclick="sendCmd('LS=100')">100</button></div></div>
+        <div class="zone" id="zoneLT"><div class="zhead"><div class="zn">L toe</div><div class="zv" id="lt">--</div></div><div class="zm" id="ltMeta">--</div><div class="zbtns"><button onclick="sendCmd('LT=0')">0</button><button onclick="sendCmd('LT=10')">10</button><button onclick="sendCmd('LT=25')">25</button><button onclick="sendCmd('LT=40')">40</button><button onclick="sendCmd('LT=100')">100</button></div></div>
+        <div class="zone" id="zoneRS"><div class="zhead"><div class="zn">R sole</div><div class="zv" id="rs">--</div></div><div class="zm" id="rsMeta">--</div><div class="zbtns"><button onclick="sendCmd('RS=0')">0</button><button onclick="sendCmd('RS=10')">10</button><button onclick="sendCmd('RS=25')">25</button><button onclick="sendCmd('RS=40')">40</button><button onclick="sendCmd('RS=100')">100</button></div></div>
+        <div class="zone" id="zoneRT"><div class="zhead"><div class="zn">R toe</div><div class="zv" id="rt">--</div></div><div class="zm" id="rtMeta">--</div><div class="zbtns"><button onclick="sendCmd('RT=0')">0</button><button onclick="sendCmd('RT=10')">10</button><button onclick="sendCmd('RT=25')">25</button><button onclick="sendCmd('RT=40')">40</button><button onclick="sendCmd('RT=100')">100</button></div></div>
       </div>
-      <div class="reply">Zone buttons are additive. Setting one zone no longer turns the others off.</div>
     </div>
 
     <div class="panel">
-      <div class="titleline">Foot modes</div>
-      <div class="footgrid">
-        <div class="footlabel">L</div>
-        <button onclick="sendCmd('LEFT=OFF')">Off</button>
-        <button onclick="sendCmd('LEFT=M')">M</button>
-        <button onclick="sendCmd('LEFT=H')">H</button>
-
-        <div class="footlabel">R</div>
-        <button onclick="sendCmd('RIGHT=OFF')">Off</button>
-        <button onclick="sendCmd('RIGHT=M')">M</button>
-        <button onclick="sendCmd('RIGHT=H')">H</button>
-
-        <div class="footlabel">A</div>
-        <button onclick="sendCmd('ALL=OFF')">Off</button>
-        <button onclick="sendCmd('ALL=M')">M</button>
-        <button onclick="sendCmd('ALL=H')">H</button>
+      <div class="title">Modes</div>
+      <div class="foot">
+        <div class="fl">L</div><button onclick="sendCmd('LO')">Off</button><button onclick="sendCmd('LM')">M</button><button onclick="sendCmd('LH')">H</button>
+        <div class="fl">R</div><button onclick="sendCmd('RO')">Off</button><button onclick="sendCmd('RM')">M</button><button onclick="sendCmd('RH')">H</button>
+        <div class="fl">A</div><button onclick="sendCmd('AO')">Off</button><button onclick="sendCmd('AM')">M</button><button onclick="sendCmd('AH')">H</button>
       </div>
-      <div class="reply">L/R/A = left/right/all. M = maintain. H = high boost.</div>
     </div>
 
     <div class="panel">
-      <div class="titleline">Manual</div>
-      <div class="row">
-        <input id="cmd" value="?" autocomplete="off" autocapitalize="characters">
-        <button onclick="sendManual()">Send</button>
-      </div>
-
-      <div class="rawbox">
-        <div class="rawtitle">Raw telemetry</div>
-        <pre id="raw">--</pre>
-      </div>
+      <div class="title">Manual / raw</div>
+      <div class="row"><input id="cmd" value="?" autocomplete="off" autocapitalize="characters"><button onclick="sendManual()">Send</button></div>
+      <div style="height:6px"></div>
+      <pre id="raw">--</pre>
     </div>
   </div>
 
@@ -536,150 +133,76 @@
 const SERVICE_UUID = "6f4c0001-b5a3-f393-e0a9-e50e24dcca9e";
 const CONTROL_UUID = "6f4c0002-b5a3-f393-e0a9-e50e24dcca9e";
 const TELEMETRY_UUID = "6f4c0003-b5a3-f393-e0a9-e50e24dcca9e";
-
-let device = null;
-let controlChar = null;
-let telemetryChar = null;
+let device = null, controlChar = null, telemetryChar = null;
 let rawLines = [];
-
-function el(id) {
-  return document.getElementById(id);
+function el(id) { return document.getElementById(id); }
+function setText(id, text) { el(id).textContent = text; }
+function setButtonConnected(on) { const b=el('connectButton'); b.textContent = on ? 'Connected' : 'Connect'; b.className = on ? 'on' : 'hot'; }
+async function toggleConnection() {
+  if (device && device.gatt && device.gatt.connected) { device.gatt.disconnect(); return; }
+  await connectHotSox();
 }
-
-function setText(id, text) {
-  el(id).textContent = text;
-}
-
-function setConn(text, cls) {
-  const c = el("conn");
-  c.textContent = text;
-  c.className = "pill" + (cls ? " " + cls : "");
-}
-
 async function connectHotSox() {
   try {
-    if (!navigator.bluetooth) {
-      setConn("No Web BLE", "err");
-      setText("raw", "Open this HTTPS page in Chrome on Android.");
-      return;
-    }
-
-    setConn("Choosing");
-    device = await navigator.bluetooth.requestDevice({
-      filters: [{ namePrefix: "HotSox" }],
-      optionalServices: [SERVICE_UUID]
-    });
-
-    device.addEventListener("gattserverdisconnected", onDisconnected);
-
-    setConn("Connecting");
+    if (!navigator.bluetooth) { setText('reply','No Web BLE'); setText('raw','Use Chrome on Android from HTTPS.'); return; }
+    el('connectButton').textContent = 'Choosing';
+    device = await navigator.bluetooth.requestDevice({ filters:[{namePrefix:'HotSox'}], optionalServices:[SERVICE_UUID] });
+    device.addEventListener('gattserverdisconnected', onDisconnected);
+    el('connectButton').textContent = 'Joining';
     const server = await device.gatt.connect();
     const service = await server.getPrimaryService(SERVICE_UUID);
-
     controlChar = await service.getCharacteristic(CONTROL_UUID);
     telemetryChar = await service.getCharacteristic(TELEMETRY_UUID);
-
-    telemetryChar.addEventListener("characteristicvaluechanged", onTelemetry);
+    telemetryChar.addEventListener('characteristicvaluechanged', onTelemetry);
     await telemetryChar.startNotifications();
-
-    setConn("Connected", "on");
-    await sendCmd("?");
-  } catch (err) {
-    setConn("Error", "err");
-    setText("raw", String(err));
-    setText("reply", String(err));
-  }
+    setButtonConnected(true);
+    await sendCmd('?');
+  } catch (err) { setButtonConnected(false); setText('reply', String(err)); setText('raw', String(err)); }
 }
-
-function disconnectHotSox() {
-  if (device && device.gatt.connected) {
-    device.gatt.disconnect();
-  }
-}
-
-function onDisconnected() {
-  setConn("Disconnected");
-  controlChar = null;
-  telemetryChar = null;
-}
-
-async function sendManual() {
-  await sendCmd(el("cmd").value);
-}
-
+function onDisconnected() { controlChar=null; telemetryChar=null; setButtonConnected(false); setText('reply','Disconnected'); }
+async function sendManual() { await sendCmd(el('cmd').value); }
 async function sendCmd(cmd) {
-  if (!controlChar) {
-    setText("reply", "Not connected");
-    return;
-  }
-
+  if (!controlChar) { setText('reply','Not connected'); return; }
   await controlChar.writeValue(new TextEncoder().encode(cmd));
-  setText("reply", "sent " + cmd);
+  setText('reply','sent ' + cmd);
 }
-
-function onTelemetry(event) {
-  const s = new TextDecoder().decode(event.target.value);
-  parseTelemetry(s);
-}
-
+function onTelemetry(event) { parseTelemetry(new TextDecoder().decode(event.target.value)); }
+function split4(v, fallback) { return (v || fallback).split('/'); }
 function parseTelemetry(s) {
-  rawLines.push(s);
-  rawLines = rawLines.slice(-5);
-  setText("raw", rawLines.join("\n"));
-
+  rawLines.push(s); rawLines = rawLines.slice(-5); setText('raw', rawLines.join('
+'));
   const data = {};
-  for (const p of s.split(",")) {
-    const eq = p.indexOf("=");
-    if (eq > 0) {
-      data[p.slice(0, eq)] = p.slice(eq + 1);
-    }
-  }
-
-  if (data.V !== undefined) setText("busV", fmt(data.V, 2));
-  if (data.I !== undefined) setText("currentA", fmt(data.I, 3));
-  if (data.P !== undefined) setText("powerW", fmt(data.P, 3));
-  if (data.F !== undefined) {
-    setText("fault", data.F);
-    el("fault").className = data.F === "0" ? "readout orange" : "readout danger";
-  }
-  if (data.R !== undefined) setText("reply", data.R);
-
-  if (data.D !== undefined || data.M !== undefined) {
-    const d = (data.D || "---/---/---/---").split("/");
-    const m = (data.M || "-/-/-/-").split("/");
-
-    updateZone("LS", "ls", d[0], m[0]);
-    updateZone("LT", "lt", d[1], m[1]);
-    updateZone("RS", "rs", d[2], m[2]);
-    updateZone("RT", "rt", d[3], m[3]);
-  }
+  for (const p of s.split(',')) { const eq=p.indexOf('='); if (eq>0) data[p.slice(0,eq)] = p.slice(eq+1); }
+  if (data.V !== undefined) setText('busV', fmt(data.V,2));
+  if (data.I !== undefined) setText('currentA', fmt(data.I,3));
+  if (data.IR !== undefined) setText('rawA', fmt(data.IR,3)); else if (data.I !== undefined) setText('rawA', fmt(data.I,3));
+  if (data.P !== undefined) setText('powerW', fmt(data.P,2));
+  if (data.LIM !== undefined) setText('lim', Math.round(Number(data.LIM)*100) + '%');
+  if (data.F !== undefined) { setText('fault', data.F); el('fault').className = data.F === '0' ? 'val hot' : 'val bad'; }
+  if (data.R !== undefined) setText('reply', data.R);
+  const d = split4(data.D, '---/---/---/---');
+  const rq = split4(data.RQ || data.REQ, d.join('/'));
+  const m = split4(data.M, '-/-/-/-');
+  const z = split4(data.Z, '?/?/?/?');
+  const a = split4(data.A, '-/-/-/-');
+  const x = split4(data.X, '-/-/-/-');
+  updateZone('LS','ls','lsMeta',d[0],rq[0],m[0],z[0],a[0],x[0]);
+  updateZone('LT','lt','ltMeta',d[1],rq[1],m[1],z[1],a[1],x[1]);
+  updateZone('RS','rs','rsMeta',d[2],rq[2],m[2],z[2],a[2],x[2]);
+  updateZone('RT','rt','rtMeta',d[3],rq[3],m[3],z[3],a[3],x[3]);
 }
-
-function fmt(v, n) {
-  const x = Number(v);
-  if (Number.isNaN(x)) return "--";
-  return x.toFixed(n);
+function fmt(v,n) { const x=Number(v); return Number.isNaN(x) ? '--' : x.toFixed(n); }
+function updateZone(id, valId, metaId, duty, req, mode, inst, amps, sub) {
+  const dn = Number(duty); const rn = Number(req);
+  setText(valId, duty + '/' + req + ' ' + mode);
+  const ztxt = inst === '1' ? 'IN' : (inst === '0' ? 'OUT' : '??');
+  setText(metaId, ztxt + ' A' + amps + ' X' + sub);
+  const card = el('zone' + id); card.className = 'zone';
+  const active = (!Number.isNaN(dn) && dn > 0) || (!Number.isNaN(rn) && rn > 0);
+  if (active) card.classList.add((dn >= 40 || mode === 'H') ? 'hot' : 'active');
 }
-
-function updateZone(zoneId, valueId, duty, mode) {
-  if (duty === undefined) duty = "---";
-  if (mode === undefined) mode = "-";
-
-  const dNum = Number(duty);
-  setText(valueId, duty + " " + mode);
-
-  const z = el("zone" + zoneId);
-  z.className = "zone";
-
-  if (!Number.isNaN(dNum) && dNum > 0) {
-    z.classList.add(dNum >= 40 ? "hot" : "active");
-  }
-}
-
-if (!navigator.bluetooth) {
-  setConn("No Web BLE", "err");
-  setText("raw", "Use Chrome on Android and load this page from HTTPS.");
-}
+setButtonConnected(false);
+if (!navigator.bluetooth) { setText('reply','No Web BLE'); setText('raw','Use Chrome on Android from HTTPS.'); }
 </script>
 </body>
 </html>
