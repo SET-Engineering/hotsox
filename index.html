@@ -169,8 +169,7 @@ async function sendCmd(cmd) {
 function onTelemetry(event) { parseTelemetry(new TextDecoder().decode(event.target.value)); }
 function split4(v, fallback) { return (v || fallback).split('/'); }
 function parseTelemetry(s) {
-  rawLines.push(s); rawLines = rawLines.slice(-5); setText('raw', rawLines.join('
-'));
+  rawLines.push(s); rawLines = rawLines.slice(-5); setText('raw', rawLines.join('\n'));
   const data = {};
   for (const p of s.split(',')) { const eq=p.indexOf('='); if (eq>0) data[p.slice(0,eq)] = p.slice(eq+1); }
   if (data.V !== undefined) setText('busV', fmt(data.V,2));
