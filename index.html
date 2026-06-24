@@ -73,6 +73,16 @@
       filter: drop-shadow(0 0 10px rgba(255,255,255,0.10));
     }
 
+    .logoFallback {
+      height: 45px;
+      width: 45px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 34px;
+      line-height: 1;
+    }
+
     .brandtext {
       min-height: 45px;
       display: flex;
@@ -250,11 +260,6 @@
       border-color: var(--orange2);
     }
 
-    button.cyan {
-      color: var(--cyan2);
-      border-color: rgba(0,185,208,0.55);
-    }
-
     button.danger {
       color: #ff9c85;
       border-color: rgba(181,54,32,0.8);
@@ -282,13 +287,13 @@
     }
 
     .zone.active {
-      border-color: rgba(0,185,208,0.55);
-      box-shadow: inset 0 0 0 1px rgba(0,185,208,0.08);
+      border-color: rgba(0,185,208,0.62);
+      box-shadow: inset 0 0 0 1px rgba(0,185,208,0.09), 0 0 10px rgba(0,185,208,0.05);
     }
 
     .zone.hot {
-      border-color: rgba(255,138,0,0.65);
-      box-shadow: inset 0 0 0 1px rgba(255,138,0,0.08);
+      border-color: rgba(255,138,0,0.72);
+      box-shadow: inset 0 0 0 1px rgba(255,138,0,0.10), 0 0 10px rgba(255,138,0,0.05);
     }
 
     .zonehead {
@@ -321,10 +326,23 @@
       gap: 4px;
     }
 
-    .footbuttons {
+    .footgrid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: auto repeat(3, 1fr);
       gap: 5px;
+      align-items: stretch;
+    }
+
+    .footlabel {
+      display: flex;
+      align-items: center;
+      color: var(--orange);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding-right: 4px;
+      min-width: 31px;
     }
 
     input {
@@ -382,6 +400,7 @@
       .top { grid-template-columns: 1fr; }
       .pill { justify-self: stretch; }
       .logo { height: 43px; }
+      .logoFallback { height: 43px; width: 43px; }
       .brandtext { min-height: 43px; }
       .brandmain { font-size: 13px; letter-spacing: 0.17em; }
       .sub { font-size: 9px; letter-spacing: 0.15em; }
@@ -434,57 +453,67 @@
         <div class="zone" id="zoneLS">
           <div class="zonehead"><div class="zonename">L sole</div><div class="zoneval" id="ls">--</div></div>
           <div class="zonebuttons">
-            <button class="small danger" onclick="sendCmd('LS=0')">0</button>
-            <button class="small" onclick="sendCmd('SOLO=LS:10')">10</button>
-            <button class="small" onclick="sendCmd('SOLO=LS:25')">25</button>
-            <button class="small" onclick="sendCmd('SOLO=LS:40')">40</button>
-            <button class="small cyan" onclick="sendCmd('SOLO=LS:100')">100</button>
+            <button class="small" onclick="sendCmd('LS=0')">0</button>
+            <button class="small" onclick="sendCmd('LS=10')">10</button>
+            <button class="small" onclick="sendCmd('LS=25')">25</button>
+            <button class="small" onclick="sendCmd('LS=40')">40</button>
+            <button class="small" onclick="sendCmd('LS=100')">100</button>
           </div>
         </div>
 
         <div class="zone" id="zoneLT">
           <div class="zonehead"><div class="zonename">L toe</div><div class="zoneval" id="lt">--</div></div>
           <div class="zonebuttons">
-            <button class="small danger" onclick="sendCmd('LT=0')">0</button>
-            <button class="small" onclick="sendCmd('SOLO=LT:10')">10</button>
-            <button class="small" onclick="sendCmd('SOLO=LT:25')">25</button>
-            <button class="small" onclick="sendCmd('SOLO=LT:40')">40</button>
-            <button class="small cyan" onclick="sendCmd('SOLO=LT:100')">100</button>
+            <button class="small" onclick="sendCmd('LT=0')">0</button>
+            <button class="small" onclick="sendCmd('LT=10')">10</button>
+            <button class="small" onclick="sendCmd('LT=25')">25</button>
+            <button class="small" onclick="sendCmd('LT=40')">40</button>
+            <button class="small" onclick="sendCmd('LT=100')">100</button>
           </div>
         </div>
 
         <div class="zone" id="zoneRS">
           <div class="zonehead"><div class="zonename">R sole</div><div class="zoneval" id="rs">--</div></div>
           <div class="zonebuttons">
-            <button class="small danger" onclick="sendCmd('RS=0')">0</button>
-            <button class="small" onclick="sendCmd('SOLO=RS:10')">10</button>
-            <button class="small" onclick="sendCmd('SOLO=RS:25')">25</button>
-            <button class="small" onclick="sendCmd('SOLO=RS:40')">40</button>
-            <button class="small cyan" onclick="sendCmd('SOLO=RS:100')">100</button>
+            <button class="small" onclick="sendCmd('RS=0')">0</button>
+            <button class="small" onclick="sendCmd('RS=10')">10</button>
+            <button class="small" onclick="sendCmd('RS=25')">25</button>
+            <button class="small" onclick="sendCmd('RS=40')">40</button>
+            <button class="small" onclick="sendCmd('RS=100')">100</button>
           </div>
         </div>
 
         <div class="zone" id="zoneRT">
           <div class="zonehead"><div class="zonename">R toe</div><div class="zoneval" id="rt">--</div></div>
           <div class="zonebuttons">
-            <button class="small danger" onclick="sendCmd('RT=0')">0</button>
-            <button class="small" onclick="sendCmd('SOLO=RT:10')">10</button>
-            <button class="small" onclick="sendCmd('SOLO=RT:25')">25</button>
-            <button class="small" onclick="sendCmd('SOLO=RT:40')">40</button>
-            <button class="small cyan" onclick="sendCmd('SOLO=RT:100')">100</button>
+            <button class="small" onclick="sendCmd('RT=0')">0</button>
+            <button class="small" onclick="sendCmd('RT=10')">10</button>
+            <button class="small" onclick="sendCmd('RT=25')">25</button>
+            <button class="small" onclick="sendCmd('RT=40')">40</button>
+            <button class="small" onclick="sendCmd('RT=100')">100</button>
           </div>
         </div>
       </div>
+      <div class="reply">Zone buttons are additive. Setting one zone no longer turns the others off.</div>
     </div>
 
     <div class="panel">
       <div class="titleline">Foot modes</div>
-      <div class="footbuttons">
-        <button onclick="sendCmd('LEFT=M')">L M</button>
-        <button onclick="sendCmd('RIGHT=M')">R M</button>
-        <button onclick="sendCmd('ALL=M')">A M</button>
-        <button class="cyan" onclick="sendCmd('ALL=H')">A H</button>
-        <button onclick="sendCmd('CLEAR')">Clr</button>
+      <div class="footgrid">
+        <div class="footlabel">L</div>
+        <button onclick="sendCmd('LEFT=OFF')">Off</button>
+        <button onclick="sendCmd('LEFT=M')">M</button>
+        <button onclick="sendCmd('LEFT=H')">H</button>
+
+        <div class="footlabel">R</div>
+        <button onclick="sendCmd('RIGHT=OFF')">Off</button>
+        <button onclick="sendCmd('RIGHT=M')">M</button>
+        <button onclick="sendCmd('RIGHT=H')">H</button>
+
+        <div class="footlabel">A</div>
+        <button onclick="sendCmd('ALL=OFF')">Off</button>
+        <button onclick="sendCmd('ALL=M')">M</button>
+        <button onclick="sendCmd('ALL=H')">H</button>
       </div>
       <div class="reply">L/R/A = left/right/all. M = maintain. H = high boost.</div>
     </div>
@@ -641,6 +670,7 @@ function updateZone(zoneId, valueId, duty, mode) {
 
   const z = el("zone" + zoneId);
   z.className = "zone";
+
   if (!Number.isNaN(dNum) && dNum > 0) {
     z.classList.add(dNum >= 40 ? "hot" : "active");
   }
